@@ -19,14 +19,15 @@
     "AES",
     "SHA-256"
   ],
-  "author": "Nkuke henry <yhenricsanyu@gmail.com>",
+  "author": "Nkuke Henry <yhenricsanyu@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "crypto-js": "^4.1.1",
-    "elliptic": "^6.5.4"
+    "elliptic": "^6.6.1"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.1.1",
+    "@types/elliptic": "^6.4.18",
     "@types/node": "^18.0.0",
     "typescript": "^5.7.3"
   }
