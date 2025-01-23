@@ -69,11 +69,6 @@ class ISWCryptoUtils {
     // Create a CipherParams object
     const cipherParams = CryptoJS.lib.CipherParams.create({
       ciphertext: ciphertext,
-      key: key,
-      iv: iv,
-      algorithm: CryptoJS.algo.AES,
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7,
     });
 
     // Decrypt using the CipherParams object
