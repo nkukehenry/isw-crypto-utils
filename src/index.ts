@@ -1,8 +1,8 @@
-const CryptoJS   = require("crypto-js");
+const CryptoJS = require("crypto-js");
 const { ec: EC } = require("elliptic");
 
 class ISWCryptoUtils {
-  private ec;
+  private ec: any;
 
   constructor() {
     this.ec = new EC("p256"); // Use the P-256 elliptic curve
@@ -35,24 +35,48 @@ class ISWCryptoUtils {
     return CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
   }
 
-  // Encrypt data using AES-256-CBC
-  encryptAES(data: string, key: string, iv: string): string {
-    const encrypted = CryptoJS.AES.encrypt(data, CryptoJS.enc.Hex.parse(key), {
-      iv: CryptoJS.enc.Hex.parse(iv),
+  // Encrypt data using AES-256-CBC (as per your implementation)
+  encryptAES(encryptableValue: string, sessionKey: string): string {
+    const iv = CryptoJS.enc.Hex.parse("00000000000000000000000000000000"); // 16 bytes of zeros
+    const key = CryptoJS.enc.Hex.parse(sessionKey);
+
+    const encrypted = CryptoJS.AES.encrypt(encryptableValue, key, {
+      iv: iv,
       mode: CryptoJS.mode.CBC,
       padding: CryptoJS.pad.Pkcs7,
     });
-    return encrypted.toString();
+
+    // Combine IV and the ciphertext
+    const combinedBuffer = CryptoJS.lib.WordArray.create(
+      iv.words.concat(encrypted.ciphertext.words)
+    );
+
+    // Convert to Base64 for the final result
+    return CryptoJS.enc.Base64.stringify(combinedBuffer);
   }
 
-  // Decrypt data using AES-256-CBC
-  decryptAES(encryptedData: string, key: string, iv: string): string {
-    const decrypted = CryptoJS.AES.decrypt(encryptedData, CryptoJS.enc.Hex.parse(key), {
-      iv: CryptoJS.enc.Hex.parse(iv),
-      mode: CryptoJS.mode.CBC,
-      padding: CryptoJS.pad.Pkcs7,
-    });
-    return decrypted.toString(CryptoJS.enc.Utf8);
+  // Decrypt data using AES-256-CBC (as per your implementation)
+  decryptAES(encryptedValue: string, sessionKey: string): string {
+    const combinedBuffer = CryptoJS.enc.Base64.parse(encryptedValue);
+    const iv = CryptoJS.lib.WordArray.create(combinedBuffer.words.slice(0, 4));
+    const ciphertext = CryptoJS.lib.WordArray.create(
+      combinedBuffer.words.slice(4),
+      combinedBuffer.sigBytes - 16
+    );
+
+    const key = CryptoJS.enc.Hex.parse(sessionKey);
+
+    const decrypted = CryptoJS.AES.decrypt(
+      { ciphertext: ciphertext },
+      key,
+      {
+        iv: iv,
+        mode: CryptoJS.mode.CBC,
+        padding: CryptoJS.pad.Pkcs7,
+      }
+    );
+
+    return CryptoJS.enc.Utf8.stringify(decrypted);
   }
 
   // Generate a random IV for AES encryption

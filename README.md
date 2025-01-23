@@ -69,23 +69,22 @@ console.log("Hash:", hash);
 
 ### Encrypt Data Using AES-256-CBC
 
-Encrypt data using AES-256-CBC. You need a 256-bit key (64 hex characters) and a 16-byte initialization vector (IV).
+Encrypt data using AES-256-CBC. You need a 256-bit key (64 hex characters).
 
 ```javascript
 
 const key = "your-256-bit-key"; // Must be 64 hex characters
-const iv = cryptoUtils.generateIV(); // Generate a random IV
-const encryptedData = cryptoUtils.encryptAES("Sensitive Data", key, iv);
+const encryptedData = cryptoUtils.encryptAES("Sensitive Data", key);
 console.log("Encrypted Data:", encryptedData);
 ```
 * * * * *
 
 ### Decrypt Data Using AES-256-CBC
 
-Decrypt data using AES-256-CBC. Use the same key and IV used for encryption.
+Decrypt data using AES-256-CBC. Use the same key used for encryption.
 
 ```javascript
-const decryptedData = cryptoUtils.decryptAES(encryptedData, key, iv);
+const decryptedData = cryptoUtils.decryptAES(encryptedData, key);
 console.log("Decrypted Data:", decryptedData);
 ```
 
