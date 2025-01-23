@@ -31,7 +31,11 @@ class ISWCryptoUtils {
   }
 
   // Hash a message using SHA-256
-  hashMessage(message: string): string {
+  hash512(message: string): string {
+    return CryptoJS.SHA512(message).toString(CryptoJS.enc.Hex);
+  }
+
+  hash256(message: string): string {
     return CryptoJS.SHA256(message).toString(CryptoJS.enc.Hex);
   }
 
@@ -89,14 +93,14 @@ class ISWCryptoUtils {
   // Sign a message using ECDSA
   signMessage(message: string, privateKey: string): string {
     const keyPair = this.ec.keyFromPrivate(privateKey, "hex");
-    const signature = keyPair.sign(this.hashMessage(message), "hex", { canonical: true });
+    const signature = keyPair.sign(this.hash512(message), "hex", { canonical: true });
     return signature.toDER("hex");
   }
 
   // Verify a message signature using ECDSA
   verifySignature(message: string, signature: string, publicKey: string): boolean {
     const keyPair = this.ec.keyFromPublic(publicKey, "hex");
-    return keyPair.verify(this.hashMessage(message), signature);
+    return keyPair.verify(this.hash512(message), signature);
   }
 }
 

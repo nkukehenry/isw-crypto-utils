@@ -21,7 +21,7 @@ Usage
 ### Import the Package
 
 ```javascript
-const ISWCryptoUtils = require("isw-crypto-utils");
+import ISWCryptoUtils from '../node_modules/isw-crypto-utils'
 const cryptoUtils = new ISWCryptoUtils();
 ```
 * * * * *
@@ -52,7 +52,7 @@ console.log("Private Key:", keyPair.privateKey);
 Derive a shared secret using ECDH. Pass your private key and the other party's public key.
 
 ```javascript
-const sharedSecret = cryptoUtils.doECDH(privateKey, publicKey);
+const sharedSecret = cryptoUtils.doECDH(privateKey, remotePublicKey);
 console.log("Shared Secret:", sharedSecret);
 ```
 * * * * *
@@ -92,7 +92,7 @@ console.log("Decrypted Data:", decryptedData);
 
 ### Sign a Message
 
-Sign a message using ECDSA. Pass the message and your private key.
+Sign a message using RSA. Pass the message and your private key.
 
 ```javascript
 const signature = cryptoUtils.signMessage("Hello, World!", privateKey);
@@ -103,7 +103,7 @@ console.log("Signature:", signature);
 
 ### Verify a Signature
 
-Verify a message signature using ECDSA. Pass the message, signature, and the signer's public key.
+Verify a message signature using RSA. Pass the message, signature, and the signer's public key.
 
 ```javascript
 const isValid = cryptoUtils.verifySignature("Hello, World!", signature, publicKey);
@@ -123,8 +123,8 @@ API Reference
 | `encryptAES(data, key, iv)` | Encrypts data using AES-256-CBC. |
 | `decryptAES(encryptedData, key, iv)` | Decrypts data using AES-256-CBC. |
 | `generateIV()` | Generates a random 16-byte IV for AES encryption. |
-| `signMessage(message, privateKey)` | Signs a message using ECDSA. |
-| `verifySignature(message, signature, publicKey)` | Verifies a message signature using ECDSA. |
+| `signMessage(message, privateKey)` | Signs a message using RSA. |
+| `verifySignature(message, signature, publicKey)` | Verifies a message signature using RSA. |
 
 * * * * *
 
