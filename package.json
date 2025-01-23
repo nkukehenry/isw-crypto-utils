@@ -1,0 +1,33 @@
+{
+  "name": "isw-crypto-utils",
+  "version": "1.0.0",
+  "description": "A utility library for cryptographic operations using crypto-js and elliptic as used at ISW.",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.js",
+  "types": "./dist/esm/index.d.ts",
+  "scripts": {
+  "build:cjs": "npx tsc -p tsconfig.cjs.json",
+  "build:esm": "npx tsc -p tsconfig.esm.json",
+  "build": "npm run build:cjs && npm run build:esm"
+  },
+  "keywords": [
+    "crypto",
+    "encryption",
+    "elliptic-curve",
+    "ECDH",
+    "ECDSA",
+    "AES",
+    "SHA-256"
+  ],
+  "author": "Nkuke henry <yhenricsanyu@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "elliptic": "^6.5.4"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "@types/node": "^18.0.0",
+    "typescript": "^5.7.3"
+  }
+}
