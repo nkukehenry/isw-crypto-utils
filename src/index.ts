@@ -1,5 +1,5 @@
-const CryptoJS = require("crypto-js");
-const { ec: EC } = require("elliptic");
+import CryptoJS from "crypto-js";
+import { ec as EC } from "elliptic";
 
 class ISWCryptoUtils {
   private ec: any;
@@ -55,7 +55,7 @@ class ISWCryptoUtils {
     return CryptoJS.enc.Base64.stringify(combinedBuffer);
   }
 
-  // Decrypt data using AES-256-CBC (as per your implementation)
+  // Decrypt data using AES-256-CBC (corrected implementation)
   decryptAES(encryptedValue: string, sessionKey: string): string {
     const combinedBuffer = CryptoJS.enc.Base64.parse(encryptedValue);
     const iv = CryptoJS.lib.WordArray.create(combinedBuffer.words.slice(0, 4));
@@ -66,15 +66,22 @@ class ISWCryptoUtils {
 
     const key = CryptoJS.enc.Hex.parse(sessionKey);
 
-    const decrypted = CryptoJS.AES.decrypt(
-      { ciphertext: ciphertext },
-      key,
-      {
-        iv: iv,
-        mode: CryptoJS.mode.CBC,
-        padding: CryptoJS.pad.Pkcs7,
-      }
-    );
+    // Create a CipherParams object
+    const cipherParams = CryptoJS.lib.CipherParams.create({
+      ciphertext: ciphertext,
+      key: key,
+      iv: iv,
+      algorithm: CryptoJS.algo.AES,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+
+    // Decrypt using the CipherParams object
+    const decrypted = CryptoJS.AES.decrypt(cipherParams, key, {
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
 
     return CryptoJS.enc.Utf8.stringify(decrypted);
   }
