@@ -1,14 +1,14 @@
 {
   "name": "isw-crypto-utils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A utility library for cryptographic operations using crypto-js and elliptic as used at ISW.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
   "types": "./dist/esm/index.d.ts",
   "scripts": {
-  "build:cjs": "npx tsc -p tsconfig.cjs.json",
-  "build:esm": "npx tsc -p tsconfig.esm.json",
-  "build": "npm run build:cjs && npm run build:esm"
+    "build:cjs": "npx tsc -p tsconfig.cjs.json",
+    "build:esm": "npx tsc -p tsconfig.esm.json",
+    "build": "npm run build:cjs && npm run build:esm"
   },
   "keywords": [
     "crypto",
