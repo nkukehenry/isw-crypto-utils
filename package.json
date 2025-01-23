@@ -1,6 +1,6 @@
 {
   "name": "isw-crypto-utils",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A utility library for cryptographic operations using crypto-js and elliptic as used at ISW.",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
